@@ -4,8 +4,9 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import SignIn from './Components/SignIn';
-import SignUp from './Components/SignUp';
+import Home from './Components';
+import SignIn from './Components/Auth/SignIn';
+import SignUp from './Components/Auth/SignUp';
 import './App.css';
 
 const App = () => (
@@ -27,9 +28,5 @@ const App = () => (
     </div>
   </Router>
 );
-
-const Home = () => (
-  <h2>Home</h2>
-)
 
 export default App;

@@ -1,0 +1,57 @@
+.header {
+  background: #2579be;
+  color: #fff;
+}
+
+.header-wrapper {
+  width: 90%;
+  margin: auto;
+}
+
+.top-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.left-top-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.logo-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 270px;
+  height: 64px;
+}
+
+.img-logo {
+  width: 64px;
+  height: 64px;
+}
+
+.title-wrapper {
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.title {
+  margin-bottom: 0;
+  color: #fff;
+}
+
+.login-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 150px;
+  margin: auto;
+  margin-right: 0;
+}
+
+.login {
+  padding: 0 10px;
+  font-size: 20px;
+  cursor: pointer;
+}

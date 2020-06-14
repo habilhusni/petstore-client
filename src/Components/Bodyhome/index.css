@@ -1,0 +1,14 @@
+.body-home-wrapper {
+  padding: 30px;
+  margin: auto;
+  max-width: 90%;
+}
+
+.col-item {
+  margin-bottom: 16px;
+}
+
+.card-item {
+  width: 240px;
+  margin: auto;
+}

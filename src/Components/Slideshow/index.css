@@ -1,0 +1,40 @@
+.carousel-image-1 {
+  width: auto;
+  height: 500px;
+  background-image: url("../../assets/slideshow/sleepy-cat.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.carousel-image-2 {
+  width: auto;
+  height: 500px;
+  background-image: url("../../assets/slideshow/cute-dog.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.carousel-image-3 {
+  width: auto;
+  height: 500px;
+  background-image: url("../../assets/slideshow/cute-mouse.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.carousel-image-4 {
+  width: auto;
+  height: 500px;
+  background-image: url("../../assets/slideshow/lonely-dog.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 90%;
+}
+
+.ant-carousel .slick-dots li button {
+  background: black;
+  opacity: 0.7;
+}

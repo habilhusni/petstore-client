@@ -1,6 +1,6 @@
-import React from 'react';
-import { Form, Input, Button } from 'antd';
-import './SignIn.css';
+import React from "react";
+import { Form, Input, Button } from "antd";
+import "./SignIn.css";
 
 const layout = {
   labelCol: {
@@ -18,20 +18,18 @@ const tailLayout = {
 };
 
 const SignUp = () => {
-  const onFinish = values => {
-    console.log('Success:', values);
+  const onFinish = (values) => {
+    console.log("Success:", values);
   };
 
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   return (
     <div className="container-signup">
       <div className="wrapp-login">
-        <span className="title-login">
-          Sign Up
-        </span>
+        <span className="title-login">Sign Up</span>
 
         <Form
           {...layout}
@@ -49,7 +47,7 @@ const SignUp = () => {
             rules={[
               {
                 required: true,
-                message: 'Please input your full name!',
+                message: "Please input your full name!",
               },
             ]}
             className="width-90prcnt"
@@ -63,7 +61,7 @@ const SignUp = () => {
             rules={[
               {
                 required: true,
-                message: 'Please input your email!',
+                message: "Please input your email!",
               },
             ]}
             className="width-90prcnt"
@@ -77,7 +75,7 @@ const SignUp = () => {
             rules={[
               {
                 required: true,
-                message: 'Please input your password!',
+                message: "Please input your password!",
               },
             ]}
             className="width-90prcnt"
@@ -91,7 +89,7 @@ const SignUp = () => {
             rules={[
               {
                 required: true,
-                message: 'Please input your password!',
+                message: "Please input your password!",
               },
             ]}
             className="width-90prcnt"
@@ -108,6 +106,6 @@ const SignUp = () => {
       </div>
     </div>
   );
-}
+};
 
 export default SignUp;

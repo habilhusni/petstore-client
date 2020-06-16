@@ -45,7 +45,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  width: 150px;
+  width: auto;
   margin: auto;
   margin-right: 0;
 }
@@ -54,4 +54,9 @@
   padding: 0 10px;
   font-size: 20px;
   cursor: pointer;
+  color: #fff;
+}
+
+.login:hover {
+  color: yellow;
 }

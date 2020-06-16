@@ -1,6 +1,8 @@
 import React from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Checkbox } from "antd";
+import axios from "axios";
 import "./SignIn.css";
+import { generateUniqueString } from "../../helper/utils";
 
 const layout = {
   labelCol: {
@@ -19,7 +21,20 @@ const tailLayout = {
 
 const SignUp = () => {
   const onFinish = (values) => {
-    console.log("Success:", values);
+    axios
+      .post("https://pet-api-store.herokuapp.com/signup", {
+        Id: generateUniqueString("usrid"),
+        Name: values.fullname,
+        Email: values.email,
+        is_Admin: values.isAdmin,
+        Password: values.password,
+      })
+      .then(function (response) {
+        window.location.href = "/signin";
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -30,7 +45,7 @@ const SignUp = () => {
     <div className="container-signup">
       <div className="wrapp-login">
         <span className="title-login">Sign Up</span>
-
+        {/* Form SignUp */}
         <Form
           {...layout}
           className="form"
@@ -41,9 +56,10 @@ const SignUp = () => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
+          {/* Input FullName */}
           <Form.Item
             label="Full Name"
-            name="full name"
+            name="fullname"
             rules={[
               {
                 required: true,
@@ -54,7 +70,7 @@ const SignUp = () => {
           >
             <Input placeholder="Full Name" />
           </Form.Item>
-
+          {/* Input Email */}
           <Form.Item
             label="Email"
             name="email"
@@ -68,7 +84,7 @@ const SignUp = () => {
           >
             <Input placeholder="Email" />
           </Form.Item>
-
+          {/* Input Password */}
           <Form.Item
             label="Password"
             name="password"
@@ -82,7 +98,7 @@ const SignUp = () => {
           >
             <Input.Password placeholder="Password" />
           </Form.Item>
-
+          {/* Input Confirm Password */}
           <Form.Item
             label="Confirm Password"
             name="confirm password"
@@ -96,7 +112,16 @@ const SignUp = () => {
           >
             <Input.Password placeholder="Confirm Password" />
           </Form.Item>
-
+          {/* IsAdmin Checkbox */}
+          <Form.Item
+            {...tailLayout}
+            name="isAdmin"
+            valuePropName="checked"
+            className="width-70prcnt"
+          >
+            <Checkbox>Admin</Checkbox>
+          </Form.Item>
+          {/* SingUp Button */}
           <Form.Item {...tailLayout} className="width-90prcnt">
             <Button type="secondary" htmlType="submit">
               Sign Up

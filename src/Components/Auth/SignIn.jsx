@@ -1,9 +1,9 @@
-import React from 'react';
-import {
-  Link
-} from "react-router-dom";
-import { Form, Input, Button, Checkbox } from 'antd';
-import './SignIn.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { Form, Input, Button, Checkbox } from "antd";
+import "./SignIn.css";
+import { setToken } from "../../helper/utils";
 
 const layout = {
   labelCol: {
@@ -21,21 +21,30 @@ const tailLayout = {
 };
 
 const SignIn = () => {
-  const onFinish = values => {
-    console.log('Success:', values);
+  const onFinish = (values) => {
+    axios
+      .post("https://pet-api-store.herokuapp.com/login", {
+        Name: values.name,
+        Password: values.password,
+      })
+      .then(function (response) {
+        setToken(response.data);
+        window.location.href = "/";
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
   };
 
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   return (
     <div className="container-signin">
       <div className="wrapp-login">
-        <span className="title-login">
-          Login
-        </span>
-
+        <span className="title-login">Login</span>
+        {/* Form Sign In */}
         <Form
           {...layout}
           className="form"
@@ -46,38 +55,44 @@ const SignIn = () => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
+          {/* Name Input */}
           <Form.Item
-            label="Email"
-            name="email"
+            label="Name"
+            name="name"
             rules={[
               {
                 required: true,
-                message: 'Please input your email!',
+                message: "Please input your name!",
               },
             ]}
             className="width-70prcnt"
           >
-            <Input placeholder="Email" />
+            <Input placeholder="Name" />
           </Form.Item>
-
+          {/* Password Input */}
           <Form.Item
             label="Password"
             name="password"
             rules={[
               {
                 required: true,
-                message: 'Please input your password!',
+                message: "Please input your password!",
               },
             ]}
             className="width-70prcnt"
           >
             <Input.Password placeholder="Password" />
           </Form.Item>
-
-          <Form.Item {...tailLayout} name="remember" valuePropName="checked" className="width-70prcnt">
+          {/* Remember me Checkbox */}
+          <Form.Item
+            {...tailLayout}
+            name="remember"
+            valuePropName="checked"
+            className="width-70prcnt"
+          >
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
-
+          {/* Submit Button */}
           <Form.Item {...tailLayout} className="width-70prcnt">
             <Button type="primary" htmlType="submit">
               Submit
@@ -85,9 +100,7 @@ const SignIn = () => {
           </Form.Item>
 
           <div className="sign-up">
-            <span className="margin-right-5px">
-              Create an account?
-            </span>
+            <span className="margin-right-5px">Create an account?</span>
 
             <Link to="/signup">Sign up</Link>
           </div>
@@ -95,6 +108,6 @@ const SignIn = () => {
       </div>
     </div>
   );
-}
+};
 
 export default SignIn;

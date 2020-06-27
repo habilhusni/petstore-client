@@ -1,8 +1,9 @@
 import React from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import axios from "axios";
 import "./SignIn.css";
 import { generateUniqueString } from "../../helper/utils";
+import Loading from "../../helper/Loading";
 
 const layout = {
   labelCol: {
@@ -19,8 +20,10 @@ const tailLayout = {
   },
 };
 
-const SignUp = () => {
+const SignUp = ({ isGlobalLoading, handleGlobalLoading }) => {
   const onFinish = (values) => {
+    handleGlobalLoading(true);
+
     axios
       .post("https://pet-api-store.herokuapp.com/signup", {
         Id: generateUniqueString("usrid"),
@@ -30,10 +33,14 @@ const SignUp = () => {
         Password: values.password,
       })
       .then(function (response) {
-        window.location.href = "/signin";
+        if (response.status === 200) {
+          window.location.href = "/signin";
+        }
       })
       .catch(function (error) {
         console.log(error.message);
+        handleGlobalLoading(false);
+        message.error(error.message);
       });
   };
 
@@ -41,7 +48,9 @@ const SignUp = () => {
     console.log("Failed:", errorInfo);
   };
 
-  return (
+  return isGlobalLoading ? (
+    <Loading />
+  ) : (
     <div className="container-signup">
       <div className="wrapp-login">
         <span className="title-login">Sign Up</span>
@@ -79,6 +88,10 @@ const SignUp = () => {
                 required: true,
                 message: "Please input your email!",
               },
+              {
+                type: "email",
+                message: "The input is not valid E-mail!",
+              },
             ]}
             className="width-90prcnt"
           >
@@ -107,6 +120,17 @@ const SignUp = () => {
                 required: true,
                 message: "Please input your password!",
               },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+
+                  return Promise.reject(
+                    "The two passwords that you entered do not match!"
+                  );
+                },
+              }),
             ]}
             className="width-90prcnt"
           >

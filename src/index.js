@@ -2,10 +2,11 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import Loading from "./helper/Loading";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-  <Suspense fallback={<div>Loading ...</div>}>
+  <Suspense fallback={<Loading />}>
     <App />
   </Suspense>,
   document.getElementById("root")

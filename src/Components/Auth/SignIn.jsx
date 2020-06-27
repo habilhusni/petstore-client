@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, message } from "antd";
 import "./SignIn.css";
 import { setToken } from "../../helper/utils";
+import Loading from "../../helper/Loading";
 
 const layout = {
   labelCol: {
@@ -20,8 +21,10 @@ const tailLayout = {
   },
 };
 
-const SignIn = () => {
-  const onFinish = (values) => {
+const SignIn = ({ isGlobalLoading, handleGlobalLoading }) => {
+  const OnFinish = (values) => {
+    handleGlobalLoading(true);
+
     axios
       .post("https://pet-api-store.herokuapp.com/login", {
         Name: values.name,
@@ -33,14 +36,18 @@ const SignIn = () => {
       })
       .catch(function (error) {
         console.log(error.message);
+        handleGlobalLoading(false);
+        message.error(error.message);
       });
   };
 
-  const onFinishFailed = (errorInfo) => {
+  const OnFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  return (
+  return isGlobalLoading ? (
+    <Loading />
+  ) : (
     <div className="container-signin">
       <div className="wrapp-login">
         <span className="title-login">Login</span>
@@ -52,8 +59,8 @@ const SignIn = () => {
           initialValues={{
             remember: true,
           }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
+          onFinish={OnFinish}
+          onFinishFailed={OnFinishFailed}
         >
           {/* Name Input */}
           <Form.Item
@@ -82,15 +89,6 @@ const SignIn = () => {
             className="width-70prcnt"
           >
             <Input.Password placeholder="Password" />
-          </Form.Item>
-          {/* Remember me Checkbox */}
-          <Form.Item
-            {...tailLayout}
-            name="remember"
-            valuePropName="checked"
-            className="width-70prcnt"
-          >
-            <Checkbox>Remember me</Checkbox>
           </Form.Item>
           {/* Submit Button */}
           <Form.Item {...tailLayout} className="width-70prcnt">

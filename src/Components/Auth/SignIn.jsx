@@ -1,10 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { Form, Input, Button, message } from "antd";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import "./SignIn.css";
-import { setToken } from "../../helper/utils";
 import Loading from "../../helper/Loading";
+import actions from "../../actions";
 
 const layout = {
   labelCol: {
@@ -21,91 +22,110 @@ const tailLayout = {
   },
 };
 
-const SignIn = ({ isGlobalLoading, handleGlobalLoading }) => {
-  const OnFinish = (values) => {
-    handleGlobalLoading(true);
+class SignIn extends Component {
+  componentDidMount = () => {
+    const { signin } = this.props;
 
-    axios
-      .post("https://pet-api-store.herokuapp.com/login", {
-        Name: values.name,
-        Password: values.password,
-      })
-      .then(function (response) {
-        setToken(response.data);
-        window.location.href = "/";
-      })
-      .catch(function (error) {
-        console.log(error.message);
-        handleGlobalLoading(false);
-        message.error(error.message);
-      });
+    if (signin.signedIn) {
+      window.location.href = "/";
+    } else if (signin.error) {
+      message.error(signin.error.message);
+    }
   };
 
-  const OnFinishFailed = (errorInfo) => {
+  handleOnFinish = (values) => {
+    const { fetchSignIn } = this.props;
+
+    const objData = {
+      Name: values.name,
+      Password: values.password,
+    };
+
+    fetchSignIn(objData);
+  };
+
+  handleOnFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  return isGlobalLoading ? (
-    <Loading />
-  ) : (
-    <div className="container-signin">
-      <div className="wrapp-login">
-        <span className="title-login">Login</span>
-        {/* Form Sign In */}
-        <Form
-          {...layout}
-          className="form"
-          name="basic"
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={OnFinish}
-          onFinishFailed={OnFinishFailed}
-        >
-          {/* Name Input */}
-          <Form.Item
-            label="Name"
-            name="name"
-            rules={[
-              {
-                required: true,
-                message: "Please input your name!",
-              },
-            ]}
-            className="width-70prcnt"
-          >
-            <Input placeholder="Name" />
-          </Form.Item>
-          {/* Password Input */}
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-            className="width-70prcnt"
-          >
-            <Input.Password placeholder="Password" />
-          </Form.Item>
-          {/* Submit Button */}
-          <Form.Item {...tailLayout} className="width-70prcnt">
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
+  render() {
+    const { signin } = this.props;
 
-          <div className="sign-up">
-            <span className="margin-right-5px">Create an account?</span>
+    return signin.signedIn ? (
+      <Loading />
+    ) : (
+      <div className="container-signin">
+        <div className="wrapp-login">
+          <span className="title-login">Login</span>
+          {/* Form Sign In */}
+          <Form
+            {...layout}
+            className="form"
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={this.handleOnFinish}
+            onFinishFailed={this.handleOnFinishFailed}
+          >
+            {/* Name Input */}
+            <Form.Item
+              label="Name"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your name!",
+                },
+              ]}
+              className="width-70prcnt"
+            >
+              <Input placeholder="Name" />
+            </Form.Item>
+            {/* Password Input */}
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+              className="width-70prcnt"
+            >
+              <Input.Password placeholder="Password" />
+            </Form.Item>
+            {/* Submit Button */}
+            <Form.Item {...tailLayout} className="width-70prcnt">
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
 
-            <Link to="/signup">Sign up</Link>
-          </div>
-        </Form>
+            <div className="sign-up">
+              <span className="margin-right-5px">Create an account?</span>
+
+              <Link to="/signup">Sign up</Link>
+            </div>
+          </Form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+}
+
+SignIn.propTypes = {
+  fetchSignIn: PropTypes.func.isRequired,
+  signin: PropTypes.object,
 };
 
-export default SignIn;
+const mapStateToProps = (state) => ({
+  signin: state.signin,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchSignIn: (data) => dispatch(actions.fetchSignIn(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

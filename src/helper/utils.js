@@ -44,4 +44,27 @@ const logout = () => {
   localStorage.removeItem("Authentication");
 };
 
-export { generateUniqueString, setToken, getToken, isAuthenticated, logout };
+const isUndefinedOrNull = (properties) =>
+  properties === undefined || properties === null;
+
+const isUndefinedOrNullOrEmpty = (obj) =>
+  isUndefinedOrNull(obj) || Object.keys(obj).length === 0 || obj.length === 0;
+
+const getValueSafely = (func, fallback) => {
+  try {
+    const value = func();
+    return isUndefinedOrNull(value) ? fallback : value;
+  } catch (e) {
+    return fallback;
+  }
+};
+
+export {
+  generateUniqueString,
+  setToken,
+  getToken,
+  isAuthenticated,
+  logout,
+  isUndefinedOrNullOrEmpty,
+  getValueSafely,
+};

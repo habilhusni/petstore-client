@@ -6,10 +6,12 @@ export default class NavContent extends Component {
     current: "Best Seller",
   };
 
-  handleClick = (e) => {
-    this.setState({
+  handleClick = async (e) => {
+    await this.setState({
       current: e.key,
     });
+
+    this.props.handleSwitchNav(e.key);
   };
 
   render() {

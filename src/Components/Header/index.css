@@ -10,21 +10,10 @@
 }
 
 .top-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   height: 100px;
 }
 
-.left-top-header {
-  display: flex;
-  flex-direction: row;
-}
-
 .logo-wrapper {
-  display: flex;
-  flex-direction: row;
-  width: 270px;
   height: 64px;
   align-self: center;
 }
@@ -44,17 +33,7 @@
   color: #fff;
 }
 
-.login-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  width: auto;
-  margin: auto;
-  margin-right: 0;
-}
-
 .login {
-  padding: 0 10px;
   font-size: 20px;
   cursor: pointer;
   color: #fff;

@@ -2,7 +2,8 @@ import React, { lazy, Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Home from "./Components";
+import Home from "./Containers/Home";
+import Product from "./Containers/Product";
 import NoMatchRoute from "./Components/NoMatchRoute";
 import Loading from "./helper/Loading";
 import "./App.css";
@@ -31,6 +32,9 @@ class App extends Component {
             <Route exact path="/">
               <Home />
             </Route>
+            <Route exact path="/product">
+              <Product />
+            </Route>
             <Route path="*">
               <NoMatchRoute />
             </Route>
@@ -41,7 +45,7 @@ class App extends Component {
   }
 }
 
-App.protoTypes = {
+App.propTypes = {
   loading: PropTypes.object,
 };
 

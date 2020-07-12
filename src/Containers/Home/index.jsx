@@ -2,14 +2,14 @@ import React, { Fragment, lazy } from "react";
 import { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import actions from "../actions";
+import actions from "../../actions";
 
-const HeaderWrapper = lazy(() => import("./Header"));
-const SlideshowWrapper = lazy(() => import("./Slideshow"));
-const BodyhomeWrapper = lazy(() => import("./Bodyhome"));
-const CategoriesWrapper = lazy(() => import("./Categories"));
-const SliderWrapper = lazy(() => import("./Slider"));
-const FooterWrapper = lazy(() => import("./Footer"));
+const HeaderWrapper = lazy(() => import("../../Components/Header"));
+const SlideshowWrapper = lazy(() => import("../../Components/Slideshow"));
+const BodyhomeWrapper = lazy(() => import("../../Components/Bodyhome"));
+const CategoriesWrapper = lazy(() => import("../../Components/Categories"));
+const SliderWrapper = lazy(() => import("../../Components/Slider"));
+const FooterWrapper = lazy(() => import("../../Components/Footer"));
 
 class Home extends Component {
   componentDidMount = () => {

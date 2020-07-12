@@ -28,13 +28,13 @@ const SlideshowWrapper = ({ data }) => {
   var parseData = {};
   var arrPhotos = [];
 
-  if (!isUndefinedOrNullOrEmpty(data.payload.data)) {
+  if (data.payload && !isUndefinedOrNullOrEmpty(data.payload.data, "")) {
     parseData = data.payload.data;
     arrPhotos = parseData.Photos;
   }
 
   return (
-    <Skeleton loading={isUndefinedOrNullOrEmpty(parseData)} size="large">
+    <Skeleton loading={isUndefinedOrNullOrEmpty(parseData)} active size="large">
       <div>
         <Carousel showDots={true} responsive={responsive}>
           {arrPhotos.map((slider, i) => (

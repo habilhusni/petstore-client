@@ -27,12 +27,12 @@ const footerInfo4 = {
 const FooterWrapper = () => (
   <Fragment>
     <Divider />
-    <Row gutter={16}>
-      <Col span={8}>
+    <Row gutter={[16, 16]}>
+      <Col xl={6} xxl={8}>
         <FooterInfo info={footerInfo1} />
       </Col>
-      <Col span={16}>
-        <Row gutter={16}>
+      <Col xl={18} xxl={16}>
+        <Row gutter={[16, 16]}>
           <FooterInfo info={footerInfo2} />
           <FooterInfo info={footerInfo3} />
           <FooterInfo info={footerInfo4} />

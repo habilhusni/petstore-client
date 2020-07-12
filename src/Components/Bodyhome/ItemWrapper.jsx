@@ -25,14 +25,26 @@ const ItemWrapper = (props) => {
   const filterData = (arrData, type) =>
     arrData.filter((data) => isCategory(data.Categories, type));
 
-  if (!isUndefinedOrNullOrEmpty(props.data.payload.data)) {
+  if (
+    props.data.payload &&
+    !isUndefinedOrNullOrEmpty(props.data.payload.data)
+  ) {
     parseData = props.data.payload.data;
     bestSellerData = filterData(parseData, "Best Sellers");
     newEntryData = filterData(parseData, "New Entry");
   }
 
   const renderItem = (prd, i) => (
-    <Col key={`item - ${i}`} className="col-item" span={6}>
+    <Col
+      key={`item - ${i}`}
+      className="col-item"
+      xs={24}
+      sm={12}
+      md={8}
+      lg={6}
+      xl={6}
+      xxl={6}
+    >
       <Card
         className="card-item"
         hoverable
@@ -58,13 +70,13 @@ const ItemWrapper = (props) => {
     switch (view) {
       case "Best Seller":
         return (
-          <Row gutter={16}>
+          <Row gutter={[16, 16]} style={{ margin: 0 }}>
             {bestSellerData.map((prd, i) => i < 16 && renderItem(prd, i))}
           </Row>
         );
       case "New Entry":
         return (
-          <Row gutter={16}>
+          <Row gutter={[16, 16]} style={{ margin: 0 }}>
             {newEntryData.map((prd, i) => i < 16 && renderItem(prd, i))}
           </Row>
         );

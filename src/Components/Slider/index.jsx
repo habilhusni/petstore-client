@@ -1,6 +1,7 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import "./index.css";
 import { Skeleton } from "antd";
 import { isUndefinedOrNullOrEmpty } from "../../helper/utils";
 
@@ -27,7 +28,7 @@ const responsive = {
 const SliderWrapper = ({ data }) => {
   var parseData = [];
 
-  if (!isUndefinedOrNullOrEmpty(data.payload.data)) {
+  if (data.payload && !isUndefinedOrNullOrEmpty(data.payload.data)) {
     parseData = data.payload.data;
   }
 
@@ -37,6 +38,7 @@ const SliderWrapper = ({ data }) => {
       active
       size="large"
     >
+      <h2 style={{ textAlign: "center", marginTop: 50 }}>Other Products</h2>
       <Carousel responsive={responsive} infinite>
         {parseData.map((parse, i) => (
           <div

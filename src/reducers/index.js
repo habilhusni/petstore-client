@@ -6,6 +6,7 @@ import signin from "./signin";
 import brand from "./brand";
 import category from "./category";
 import product from "./product";
+import drawer from "./drawer";
 
 export default combineReducers({
   signup,
@@ -14,4 +15,5 @@ export default combineReducers({
   brand,
   category,
   product,
+  drawer,
 });

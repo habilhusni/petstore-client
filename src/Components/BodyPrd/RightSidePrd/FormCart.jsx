@@ -1,23 +1,19 @@
 import React, { Component, lazy } from "react";
 import { Row, Col, Button } from "antd";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import actions from "../../../actions";
 import "./index.css";
 
 const Count = lazy(() => import("./Count"));
 const DrawerCart = lazy(() => import("./DrawerCart"));
 
 class CartCount extends Component {
-  state = {
-    totCount: 0,
-    visibleDrawer: false,
-  };
-
-  handleVisibleDrawer = (bool) => {
-    this.setState({
-      visibleDrawer: bool,
-    });
-  };
+  state = {};
 
   render() {
+    const { drawer, handleDrawerCart } = this.props;
+
     return (
       <Row className="cart-container">
         <Col span={24}>
@@ -30,15 +26,15 @@ class CartCount extends Component {
             <Button
               type="primary"
               size="large"
-              onClick={() => this.handleVisibleDrawer(true)}
+              onClick={() => handleDrawerCart(true)}
               block
             >
               ADD TO CART
             </Button>
           </Row>
           <DrawerCart
-            onShowDrawer={this.handleVisibleDrawer}
-            visibleDrawer={this.state.visibleDrawer}
+            onShowDrawer={handleDrawerCart}
+            visibleDrawer={drawer.isDrawerOpen}
           />
         </Col>
       </Row>
@@ -46,4 +42,23 @@ class CartCount extends Component {
   }
 }
 
-export default CartCount;
+CartCount.propTypes = {
+  drawer: PropTypes.object,
+  handleDrawerCart: PropTypes.func,
+};
+
+CartCount.defaultProps = {
+  drawer: {},
+  handleDrawerCart: () => {},
+};
+
+const mapStateToProps = (state) => ({
+  drawer: state.drawer,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleDrawerCart: (isDrawerOpen) =>
+    dispatch(actions.handleDrawerCart(isDrawerOpen)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartCount);

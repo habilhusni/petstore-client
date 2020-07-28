@@ -1,5 +1,6 @@
 import React, { Component, lazy } from "react";
 import { Drawer, Button, Row, Col } from "antd";
+import PropTypes from "prop-types";
 import "./index.css";
 
 import img from "../../../assets/body-image/dog-1.jpg";
@@ -66,5 +67,15 @@ class DrawerCart extends Component {
     );
   }
 }
+
+DrawerCart.propTypes = {
+  onShowDrawer: PropTypes.func,
+  visibleDrawer: PropTypes.bool,
+};
+
+DrawerCart.defaultProps = {
+  onShowDrawer: () => {},
+  visibleDrawer: false,
+};
 
 export default DrawerCart;

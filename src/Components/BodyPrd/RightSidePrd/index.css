@@ -116,6 +116,7 @@
   text-align: end;
   font-size: 8px;
   margin: auto;
+  cursor: pointer;
 }
 
 .remove > span {
